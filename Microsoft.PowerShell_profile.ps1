@@ -1,10 +1,5 @@
-function get_token
-{
-    python.exe "C:\Users\t00814305\Downloads\prod_token.py "
-}
-
 # Bash-like completion with an interactive menu
-# Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
+Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
 
 Set-PSReadLineOption -EditMode Emacs
 
