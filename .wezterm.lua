@@ -5,7 +5,8 @@ local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 -- This is where you actually apply your config choices
-
+--
+config.prefer_to_spawn_tabs = true
 -- Enable OSC 52 clipboard integration for SSH/tmux
 -- This allows remote applications (tmux, nvim) to copy to local clipboard
 config.enable_csi_u_key_encoding = true
@@ -16,29 +17,30 @@ config.term = "wezterm"
 
 -- For example, changing the color scheme:
 config.color_scheme = 'AdventureTime'
-
+config.font = wezterm.font 'JetBrains Mono'
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 
 config.keys = {
     {
-      key = 'c',
-      mods = 'CTRL',
-      action = wezterm.action_callback(function(window, pane)
-        local sel = window:get_selection_text_for_pane(pane)
-        if (not sel or sel == '') then
-          window:perform_action(wezterm.action.SendKey{ key='c', mods='CTRL' }, pane)
-        else
-          window:perform_action(wezterm.action{ CopyTo = 'ClipboardAndPrimarySelection' }, pane)
-        end
-      end), 
+        key = 'c',
+        mods = 'CTRL',
+        action = wezterm.action_callback(function(window, pane)
+            local sel = window:get_selection_text_for_pane(pane)
+            if (not sel or sel == '') then
+                window:perform_action(wezterm.action.SendKey { key = 'c', mods = 'CTRL' }, pane)
+            else
+                window:perform_action(wezterm.action { CopyTo = 'ClipboardAndPrimarySelection' }, pane)
+            end
+        end),
     },
-	{ key = 'v', mods = 'CTRL', action = wezterm.action.PasteFrom 'PrimarySelection' },
-	{ key = 'p', mods = 'CTRL', action = wezterm.action.SendKey{ key='UpArrow' }},
-	{ key = 'n', mods = 'CTRL', action = wezterm.action.SendKey{ key='DownArrow' }},
+    { key = 'v', mods = 'CTRL', action = wezterm.action.PasteFrom 'PrimarySelection' },
+    -- { key = 'p', mods = 'CTRL', action = wezterm.action.SendKey{ key='UpArrow' }},
+    -- { key = 'n', mods = 'CTRL', action = wezterm.action.SendKey{ key='DownArrow' }},
 }
 
 config.default_prog = { 'pwsh.exe', '-NoLogo' }
 config.enable_scroll_bar = true
+-- config.min_scroll_bar_height = "50px"
 
 -- and finally, return the configuration to wezterm
 return config
