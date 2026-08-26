@@ -45,6 +45,8 @@ config.keys = {
 	-- { key = 'p', mods = 'CTRL', action = act.SendKey{ key='UpArrow' }},
 	-- { key = 'n', mods = 'CTRL', action = act.SendKey{ key='DownArrow' }},
 
+	-- Trying to make Copy & Search mode more useful
+	-- Here are some ideas https://github.com/wezterm/wezterm/issues/1988
 	-- {
 	-- 	key = "x",
 	-- 	mods = "CTRL|SHIFT",
