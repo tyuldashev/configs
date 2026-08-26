@@ -1,5 +1,6 @@
 -- Pull in the wezterm API
-local wezterm = require 'wezterm'
+local wezterm = require("wezterm")
+local act = wezterm.action
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
@@ -13,32 +14,97 @@ config.enable_csi_u_key_encoding = true
 
 -- Ensure OSC 52 clipboard integration is enabled
 -- Wezterm supports OSC 52 by default, but we explicitly configure it here
-config.term = "wezterm"
+config.term = "xterm-256color"
 
 -- For example, changing the color scheme:
-config.color_scheme = 'AdventureTime'
-config.font = wezterm.font 'JetBrains Mono'
+config.color_scheme = "AdventureTime"
+config.font = wezterm.font("JetBrains Mono")
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 
+-- Keys setup
+config.leader = { key = "q", mods = "ALT", timeout_milliseconds = 4000 }
+
 config.keys = {
-    {
-        key = 'c',
-        mods = 'CTRL',
-        action = wezterm.action_callback(function(window, pane)
-            local sel = window:get_selection_text_for_pane(pane)
-            if (not sel or sel == '') then
-                window:perform_action(wezterm.action.SendKey { key = 'c', mods = 'CTRL' }, pane)
-            else
-                window:perform_action(wezterm.action { CopyTo = 'ClipboardAndPrimarySelection' }, pane)
-            end
-        end),
-    },
-    { key = 'v', mods = 'CTRL', action = wezterm.action.PasteFrom 'PrimarySelection' },
-    -- { key = 'p', mods = 'CTRL', action = wezterm.action.SendKey{ key='UpArrow' }},
-    -- { key = 'n', mods = 'CTRL', action = wezterm.action.SendKey{ key='DownArrow' }},
+	{
+		key = "c",
+		mods = "CTRL",
+		action = wezterm.action_callback(function(window, pane)
+			local sel = window:get_selection_text_for_pane(pane)
+			if not sel or sel == "" then
+				window:perform_action(act.SendKey({ key = "c", mods = "CTRL" }), pane)
+			else
+				window:perform_action(wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }), pane)
+			end
+		end),
+	},
+
+	{ key = "_", mods = "CTRL|SHIFT", action = act.DisableDefaultAssignment },
+	{ key = "_", mods = "CTRL", action = act.DisableDefaultAssignment },
+
+	{ key = "v", mods = "CTRL", action = act.PasteFrom("PrimarySelection") },
+	-- { key = 'p', mods = 'CTRL', action = act.SendKey{ key='UpArrow' }},
+	-- { key = 'n', mods = 'CTRL', action = act.SendKey{ key='DownArrow' }},
+
+	-- {
+	-- 	key = "x",
+	-- 	mods = "CTRL|SHIFT",
+	-- 	action = act.Multiple({
+	-- 		-- act.Search({ CaseInSensitiveString = "" }),
+	-- 		act.CopyMode("ClearPattern"),
+	-- 		act.ActivateCopyMode,
+	-- 	}),
+	-- },
+	{
+		key = "f",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action_callback(function(window, pane)
+			window:perform_action(act.Search({ CaseInSensitiveString = "" }), pane)
+			window:perform_action(act.Search("CurrentSelectionOrEmptyString"), pane)
+			window:perform_action(
+				act.Multiple({
+					act.CopyMode("ClearPattern"),
+					act.CopyMode("ClearSelectionMode"),
+					act.CopyMode("MoveToScrollbackBottom"),
+				}),
+				pane
+			)
+		end),
+	},
+
+	-- Window management
+	{
+		key = "-",
+		mods = "LEADER",
+		action = act.SplitVertical,
+	},
+	{
+		key = ";",
+		mods = "LEADER",
+		action = act.SplitHorizontal,
+	},
+	{
+		key = "h",
+		mods = "LEADER",
+		action = act.ActivatePaneDirection("Left"),
+	},
+	{
+		key = "j",
+		mods = "LEADER",
+		action = act.ActivatePaneDirection("Down"),
+	},
+	{
+		key = "k",
+		mods = "LEADER",
+		action = act.ActivatePaneDirection("Up"),
+	},
+	{
+		key = "l",
+		mods = "LEADER",
+		action = act.ActivatePaneDirection("Right"),
+	},
 }
 
-config.default_prog = { 'pwsh.exe', '-NoLogo' }
+config.default_prog = { "pwsh.exe", "-NoLogo" }
 config.enable_scroll_bar = true
 -- config.min_scroll_bar_height = "50px"
 
