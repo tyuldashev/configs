@@ -1,0 +1,24 @@
+[[mgr.prepend_keymap]]
+on = "<Enter>"
+run = "noop"
+desc = "Disable openning with Enter"
+
+[[mgr.prepend_keymap]]
+on = "Q"
+run = ["plugin autosave", "quit"]
+desc = "Quit the process"
+
+[[mgr.prepend_keymap]]
+on = "q"
+run = ["plugin autosave", "quit --no-cwd-file"]
+desc = "Quit without outputting cwd-file"
+
+[[mgr.prepend_keymap]]
+on = [ "g", "c" ]
+run = "cd ~/AppData/Roaming/yazi/config"
+desc = "Go to config folder"
+
+[[mgr.prepend_keymap]]
+on = "z"
+run = "plugin zoxide"
+desc = "Jump to a directory via zoxide"
