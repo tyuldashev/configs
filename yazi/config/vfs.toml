@@ -1,7 +1,0 @@
-[services.codearts]
-type = "sftp"
-host = "7.188.23.222"
-user = "root"
-port = 22
-key_file = "~/.ssh/id_rsa"
-
