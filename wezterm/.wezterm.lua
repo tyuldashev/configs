@@ -22,26 +22,26 @@ config.font = wezterm.font("JetBrains Mono")
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 
 -- Keys setup
-config.leader = { key = "q", mods = "ALT", timeout_milliseconds = 4000 }
+config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 4000 }
 
 config.keys = {
-	{
-		key = "c",
-		mods = "CTRL",
-		action = wezterm.action_callback(function(window, pane)
-			local sel = window:get_selection_text_for_pane(pane)
-			if not sel or sel == "" then
-				window:perform_action(act.SendKey({ key = "c", mods = "CTRL" }), pane)
-			else
-				window:perform_action(wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }), pane)
-			end
-		end),
-	},
+	-- 	{
+	-- 		key = "c",
+	-- 		mods = "CTRL",
+	-- 		action = wezterm.action_callback(function(window, pane)
+	-- 			local sel = window:get_selection_text_for_pane(pane)
+	-- 			if not sel or sel == "" then
+	-- 				window:perform_action(act.SendKey({ key = "c", mods = "CTRL" }), pane)
+	-- 			else
+	-- 				window:perform_action(wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }), pane)
+	-- 			end
+	-- 		end),
+	-- 	},
+	-- 	{ key = "v", mods = "CTRL", action = act.PasteFrom("PrimarySelection") },
 
 	{ key = "_", mods = "CTRL|SHIFT", action = act.DisableDefaultAssignment },
 	{ key = "_", mods = "CTRL", action = act.DisableDefaultAssignment },
 
-	{ key = "v", mods = "CTRL", action = act.PasteFrom("PrimarySelection") },
 	-- { key = 'p', mods = 'CTRL', action = act.SendKey{ key='UpArrow' }},
 	-- { key = 'n', mods = 'CTRL', action = act.SendKey{ key='DownArrow' }},
 
@@ -80,7 +80,7 @@ config.keys = {
 		action = act.SplitVertical,
 	},
 	{
-		key = ";",
+		key = "v",
 		mods = "LEADER",
 		action = act.SplitHorizontal,
 	},
@@ -106,7 +106,7 @@ config.keys = {
 	},
 }
 
-config.default_prog = { "pwsh.exe", "-NoLogo" }
+config.default_prog = { "nu.exe" }
 config.enable_scroll_bar = true
 -- config.min_scroll_bar_height = "50px"
 

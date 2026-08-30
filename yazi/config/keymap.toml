@@ -1,24 +1,58 @@
 [[mgr.prepend_keymap]]
-on = "<Enter>"
-run = "noop"
-desc = "Disable openning with Enter"
+on = "b"
+run = "plugin whoosh jump_by_key"
+desc = "Bookmarks"
 
 [[mgr.prepend_keymap]]
-on = "Q"
-run = ["plugin autosave", "quit"]
-desc = "Quit the process"
+on = "B"
+run = "plugin whoosh save_cwd"
+desc = "Bookmark current directory"
 
 [[mgr.prepend_keymap]]
 on = "q"
-run = ["plugin autosave", "quit --no-cwd-file"]
-desc = "Quit without outputting cwd-file"
+run = ["quit --no-cwd-file"]
+desc = "Quit without changing directory"
 
 [[mgr.prepend_keymap]]
-on = [ "g", "c" ]
-run = "cd ~/AppData/Roaming/yazi/config"
-desc = "Go to config folder"
+on = "Q"
+run = ["quit"]
+desc = "Quit and change directory"
 
 [[mgr.prepend_keymap]]
-on = "z"
-run = "plugin zoxide"
-desc = "Jump to a directory via zoxide"
+on = "o"
+run = '''shell --block -- "C:\Program Files\Neovim\bin\nvim.exe" %h'''
+desc = "Open hovered file in Neovim"
+
+[[mgr.prepend_keymap]]
+on = "S"
+run = "plugin fg -- rg"
+desc = "Search file contents with highlighted preview"
+
+[[mgr.prepend_keymap]]
+on = ["g", "c"]
+run = 'cd "C:/Users/Tim/AppData/Roaming/yazi/config"'
+desc = "Go to Yazi config"
+
+[[input.prepend_keymap]]
+on   = "<Esc>"
+run  = "close"
+desc = "Cancel input"
+
+[[mgr.prepend_keymap]]
+on = ":"
+run = '''shell --block -- nu'''
+desc = "Открыть Nushell"
+
+[[mgr.prepend_keymap]]
+on = "<C-o>"
+run = '''shell --block -- nu -c "input listen --types [key] | ignore"'''
+desc = "Показать экран терминала"
+
+[[mgr.prepend_keymap]]
+on  = "<C-k>"
+run = "plugin parent-arrow -1"
+
+[[mgr.prepend_keymap]]
+on  = "<C-j>"
+run = "plugin parent-arrow 1"
+
