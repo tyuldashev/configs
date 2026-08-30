@@ -1,0 +1,11 @@
+(defsrc
+  caps
+)
+
+(defalias
+  caps_mod (tap-hold 200 200 esc lctl)
+)
+
+(deflayer base
+  @caps_mod
+)
