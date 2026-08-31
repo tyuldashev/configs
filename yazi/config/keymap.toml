@@ -19,18 +19,13 @@ run = ["quit"]
 desc = "Quit and change directory"
 
 [[mgr.prepend_keymap]]
-on = "o"
-run = '''shell --block -- "C:\Program Files\Neovim\bin\nvim.exe" %h'''
-desc = "Open hovered file in Neovim"
-
-[[mgr.prepend_keymap]]
 on = "S"
 run = "plugin fg -- rg"
 desc = "Search file contents with highlighted preview"
 
 [[mgr.prepend_keymap]]
 on = ["g", "c"]
-run = 'cd "C:/Users/Tim/AppData/Roaming/yazi/config"'
+run = 'cd "%APPDATA%\\yazi\\config"'
 desc = "Go to Yazi config"
 
 [[input.prepend_keymap]]

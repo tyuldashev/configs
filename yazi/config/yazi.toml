@@ -6,5 +6,9 @@ run = "md-glow"
 mime = "text/markdown"
 run = "md-glow"
 
-# [mgr]
-# show_hidden = false
+[opener]
+edit = [
+	{ run = "$EDITOR %s", block = true, for = "unix" },
+	{ run = "%EDITOR% %s", block = true, for = "windows" },
+]
+
